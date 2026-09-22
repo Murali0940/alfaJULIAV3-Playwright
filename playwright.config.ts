@@ -67,7 +67,7 @@ export default defineConfig({
           args: [
             "--start-maximized"
           ],
-          slowMo: 500,
+          slowMo: 1000,
         },
       },
     },

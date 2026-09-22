@@ -4,8 +4,8 @@ import { test, expect } from "../fixtures/test-fixture.js";
 import { SettingsPage } from "../src/SettingsPage.js";
 
 
-test.describe("alfaJULIA home page", () => {
-  test("Homepage Elements Validation", async ({ page }) => {
+test("alfaJULIA Application Validation", async ({ page }) => {
+  await test.step("Homepage Elements Validation", async () => {
     const homepageValidation = new HomepageValidation(page);
     await homepageValidation.selectLanguage("EN");
     await expect(homepageValidation.logo).toBeVisible();
@@ -23,10 +23,12 @@ test.describe("alfaJULIA home page", () => {
     await homepageValidation.getCurrentRobotName();
   });
 
-  test("settings Elements Validation", async ({ page }) => {
-    const settingsPage = new SettingsPage(page);
+  const settingsPage = new SettingsPage(page);
+
+  await test.step("settings Elements Validation", async ({ }) => {
+    
     await settingsPage.clickSettingsLink();
-    await expect(page).toHaveURL(/.*settings/);
+    await expect(page).toHaveURL(/settings/);
 
     await expect(settingsPage.materialAndThicknessLink).toBeVisible();
     await expect(settingsPage.machineConfigurationlink).toBeVisible();
@@ -38,5 +40,12 @@ test.describe("alfaJULIA home page", () => {
     await settingsPage.clickMachineConfigurationLink();
     await settingsPage.clickProgramConfigurationLink();
     await settingsPage.clickGaiaConnectionLink();
+  });
+
+  await test.step("Material and Thickness page", async ({ }) => {
+    await settingsPage.clickMaterialAndThicknessLink();
+    await settingsPage.addMaterial("TestSECC");
+    await settingsPage.addMaterialButtonClick();
+    await settingsPage.editMaterial("TestSECC");
   });
 });
