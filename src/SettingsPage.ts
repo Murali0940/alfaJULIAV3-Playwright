@@ -53,7 +53,7 @@ export class SettingsPage {
   }
 
   async editMaterial(materialName: string) {
-    console.log("Material Name is:", materialName);
+    console.log("Material name is:", materialName);
 
     const editMaterialButton = this.page.getByRole("button", {
         name: `${materialName} を編集`,
