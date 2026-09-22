@@ -5,7 +5,7 @@ import { SettingsPage } from "../src/SettingsPage.js";
 
 
 test.describe("alfaJULIA home page", () => {
-  test("Elements Validation", async ({ page }) => {
+  test("Homepage Elements Validation", async ({ page }) => {
     const homepageValidation = new HomepageValidation(page);
     await homepageValidation.selectLanguage("EN");
     await expect(homepageValidation.logo).toBeVisible();
@@ -21,9 +21,22 @@ test.describe("alfaJULIA home page", () => {
     await expect(homepageValidation.searchButton).toBeVisible();
     await homepageValidation.getrobotname();
     await homepageValidation.getCurrentRobotName();
+  });
 
+  test("settings Elements Validation", async ({ page }) => {
     const settingsPage = new SettingsPage(page);
     await settingsPage.clickSettingsLink();
     await expect(page).toHaveURL(/.*settings/);
+
+    await expect(settingsPage.materialAndThicknessLink).toBeVisible();
+    await expect(settingsPage.machineConfigurationlink).toBeVisible();
+    await expect(settingsPage.programConfigurationLink).toBeVisible();
+    await expect(settingsPage.gaiaConnectionLink).toBeVisible();
+
+
+    await settingsPage.clickMaterialAndThicknessLink();
+    await settingsPage.clickMachineConfigurationLink();
+    await settingsPage.clickProgramConfigurationLink();
+    await settingsPage.clickGaiaConnectionLink();
   });
 });
